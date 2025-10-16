@@ -141,6 +141,125 @@ After running `install.sh`:
 - **VSCode**: Visual Studio Code editor (if not already installed)
 - **Claude Code Extension**: The official Claude extension for VSCode
 
+---
+
+## Creating a System Blueprint for Your Project
+
+Once you have Claude Code set up, use it to create comprehensive technical plans for your projects!
+
+### What is a System Blueprint?
+
+A System Blueprint is a complete technical and product specification document that covers:
+- 📋 Vision and strategy
+- 👥 User personas and features
+- 🏗️ Technical architecture (Claude recommends based on your needs)
+- 💾 Database schema and API design
+- 🧪 Testing and deployment strategies
+- 🚀 Growth and scaling plans
+
+### Why Create a Blueprint?
+
+- **Reduce project risk** - Think through problems before coding
+- **Speed up development** - Clear specs = faster implementation
+- **Make better decisions** - Claude analyzes your constraints and recommends optimal architecture
+- **Onboard team members** - Complete documentation in one place
+- **Plan for scale** - Know when and how to evolve your architecture
+
+### How It Works
+
+1. **You provide context** (30-45 min per phase):
+   - Your project idea, goals, and constraints
+   - Target users and features
+   - Team size, timeline, and budget
+
+2. **Claude analyzes and recommends** (I do the heavy lifting):
+   - Architecture pattern (monolith vs microservices)
+   - Complete tech stack with reasoning
+   - Database schema design
+   - API specifications
+   - Security strategy
+   - Scaling plan
+
+3. **You get a complete blueprint** (3-4 hours total):
+   - Professional `SYSTEM_BLUEPRINT.md` file
+   - Ready to use as foundation for your new project repo
+   - Living document that evolves with your project
+
+### Quick Start with Blueprint Creation
+
+In VSCode with Claude Code installed, use the slash command:
+
+```
+/create-blueprint
+```
+
+Or start manually:
+```
+"Let's create a system blueprint for my project. I'm ready for Phase 1."
+```
+
+### Documentation
+
+- 📖 **[Complete Guide](docs/BLUEPRINT_GUIDE.md)** - Detailed walkthrough of all 6 phases
+- 📝 **[Template](docs/BLUEPRINT_TEMPLATE.md)** - See what the final blueprint looks like
+- 🎯 **[Specification](BLUEPRINT_SYSTEM_SPEC.md)** - How the system works
+
+### Example Flow
+
+```
+You: "/create-blueprint"
+
+Claude: "Let's create a comprehensive System Blueprint! This takes 3-4 hours
+but results in a complete technical plan.
+
+Phase 1: Tell me about your project idea in 2-3 sentences. What problem
+does it solve?"
+
+You: "A collaborative task management tool for remote teams across time zones..."
+
+Claude: "Great! Let me ask some clarifying questions about your vision..."
+
+[After Phase 1-2, Claude analyzes your requirements]
+
+Claude: "Based on your requirements:
+- 2 developers, 3-month timeline
+- Real-time features needed
+- 5K users expected in year 1
+- Medium extensibility (API + webhooks in v2)
+
+I recommend:
+- Architecture: Modular Monolith
+- Backend: FastAPI (Python)
+- Frontend: React + TypeScript
+- Database: PostgreSQL + Redis
+- Hosting: Railway
+
+Here's my reasoning..."
+```
+
+### Key Features
+
+✅ **Extensibility-Aware**: Claude asks about your extensibility needs early, then designs architecture accordingly
+
+✅ **Intelligent Recommendations**: Not just documenting—Claude makes smart tech stack decisions based on your constraints
+
+✅ **Pragmatic**: Recommendations match your team size, timeline, and budget (no over-engineering)
+
+✅ **Complete**: Covers everything from vision to deployment strategy
+
+✅ **Production-Ready**: Specifications are detailed enough to start building immediately
+
+### What You'll Learn
+
+Even if you don't use the final blueprint, the process helps you:
+- Think through architecture decisions systematically
+- Understand trade-offs between different approaches
+- Plan for scale from day one
+- Identify risks and dependencies early
+- Budget time and resources accurately
+
+---
+
 ## Uninstalling
 
 To remove Claude Code:
