@@ -73,7 +73,22 @@ In VSCode Terminal (`Terminal > New Terminal` or `Ctrl+~`), run:
 claude auth login
 ```
 
-Follow the prompts to authenticate with your Claude Pro account. You're all set!
+**IMPORTANT:** When prompted, select the authentication method:
+- ✅ **Choose "Login with Claude.ai account"** (this uses your Pro/Max subscription)
+- ❌ **DO NOT choose "API Key"** (this is for API usage, not Claude Code)
+
+Follow the prompts to:
+1. Your browser will open to authenticate
+2. Log in with your Claude account (the one with Pro subscription)
+3. Authorize the connection
+4. Return to VSCode - you're authenticated!
+
+To verify authentication worked, run:
+```bash
+claude status
+```
+
+You should see your account information and subscription status.
 
 ## Verification
 
