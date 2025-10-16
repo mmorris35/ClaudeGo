@@ -51,7 +51,7 @@ The script will:
 
 ### Step 2: Fork This Repository
 
-1. Go to [github.com/anthropics/ClaudeGo](https://github.com/anthropics/ClaudeGo) (or wherever this repo is hosted)
+1. Go to [github.com/mmorris35/ClaudeGo](https://github.com/mmorris35/ClaudeGo)
 2. Click the "Fork" button in the top-right corner
 3. This creates your own copy of the repository on your GitHub account
 
