@@ -101,7 +101,7 @@ claude status
 This will show you your Claude authentication status. You can also verify the installation by:
 
 1. Press `Cmd+Shift+P` in VSCode
-2. Type "Claude Code" to see available commands
+2. Type "Claude" to see available commands
 3. If you see Claude commands, you're all set!
 
 ## Troubleshooting
