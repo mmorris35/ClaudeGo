@@ -187,22 +187,46 @@ A System Blueprint is a complete technical and product specification document th
 
 ### Quick Start with Blueprint Creation
 
-In VSCode with Claude Code installed, use the slash command:
+**Option 1: Use the Slash Command (Recommended)**
+
+In VSCode with Claude Code installed, open the Claude Code chat and type:
 
 ```
 /create-blueprint
 ```
 
-Or start manually:
+Claude will immediately start the interactive process, asking you questions and guiding you through all 6 phases.
+
+**Option 2: Manual Start**
+
+Open the [Complete Blueprint Guide](docs/BLUEPRINT_GUIDE.md) and read through Phase 1. Then in Claude Code chat, say:
+
 ```
 "Let's create a system blueprint for my project. I'm ready for Phase 1."
 ```
 
+**How to Use It:**
+
+1. **Start the process** using one of the methods above
+2. **Answer Claude's questions** - Be specific about your goals, constraints, team size, timeline, and budget
+3. **Review Claude's recommendations** - Claude will analyze your answers and recommend architecture, tech stack, database design, etc.
+4. **Iterate and refine** - Ask follow-up questions, request alternatives, or dive deeper into any area
+5. **Get your blueprint** - After completing all 6 phases (3-4 hours total), Claude will generate a complete `SYSTEM_BLUEPRINT.md` file
+
+**Tips for Best Results:**
+
+- Block out 3-4 hours for the complete process (or do it in multiple sessions)
+- Be honest about constraints (team size, timeline, budget, technical expertise)
+- Ask "why" when Claude makes recommendations - understanding the reasoning helps you make better decisions
+- Keep the [Blueprint Guide](docs/BLUEPRINT_GUIDE.md) open for reference
+- Save the final `SYSTEM_BLUEPRINT.md` in your new project repository
+
 ### Documentation
 
-- 📖 **[Complete Guide](docs/BLUEPRINT_GUIDE.md)** - Detailed walkthrough of all 6 phases
-- 📝 **[Template](docs/BLUEPRINT_TEMPLATE.md)** - See what the final blueprint looks like
-- 🎯 **[Specification](BLUEPRINT_SYSTEM_SPEC.md)** - How the system works
+- 📖 **[Complete Guide](docs/BLUEPRINT_GUIDE.md)** - Detailed walkthrough of all 6 phases with example questions
+- 📋 **[Examples](docs/BLUEPRINT_EXAMPLES.md)** - Three complete blueprint examples (SaaS, Marketplace, Internal Tool)
+- 📝 **[Template](docs/BLUEPRINT_TEMPLATE.md)** - See the structure of the final blueprint output
+- 🎯 **[Specification](BLUEPRINT_SYSTEM_SPEC.md)** - Technical details of how the system works
 
 ### Example Flow
 
@@ -257,6 +281,139 @@ Even if you don't use the final blueprint, the process helps you:
 - Plan for scale from day one
 - Identify risks and dependencies early
 - Budget time and resources accurately
+
+---
+
+## Creating a Development Plan from Your Blueprint
+
+Once you have a System Blueprint, transform it into a bulletproof, paint-by-numbers development plan!
+
+### What is a Development Plan?
+
+A Development Plan (`DEV_PLAN.md`) is a detailed execution roadmap that breaks your blueprint into:
+- 📋 **Numbered phases, tasks, and subtasks** - Clear hierarchy and dependencies
+- 🌳 **Git workflow** - Feature branches, dev branch, and main branch discipline
+- ✅ **Quality gates** - Concrete completion criteria for each task
+- 🚫 **Zero technical debt** - No task is complete until it's code-complete (tests, docs, error handling, etc.)
+- 📍 **Progress tracking** - Claude marks completion and you can ask "where are we?"
+
+### Why Create a Dev Plan?
+
+- **No missed steps** - Every detail from blueprint becomes a concrete task
+- **Quality assurance** - Built-in quality gates prevent shipping incomplete work
+- **Clear progress** - Always know exactly where you are in the project
+- **Git discipline** - Systematic branching prevents merge chaos
+- **Team alignment** - Everyone knows what's done, what's in progress, and what's next
+
+### How It Works
+
+1. **You provide your blueprint** - The completed `SYSTEM_BLUEPRINT.md` from the blueprint process
+2. **Claude generates the dev plan** - Breaks down every feature into specific tasks with subtasks
+3. **Claude guides execution** - Marks tasks complete, enforces quality gates, updates the plan
+4. **You ask "where are we?"** - Claude reports exact phase, task, and subtask location
+
+### Quick Start with Dev Plan Creation
+
+**Step 1: Open the Dev Plan Guide**
+
+Open [docs/DEV_PLAN_GUIDE.md](docs/DEV_PLAN_GUIDE.md) in VSCode.
+
+**Step 2: Copy the Prompt Sequence**
+
+Find the "## Prompt Sequence to Generate DEV_PLAN.md" section and copy the complete prompt.
+
+**Step 3: Paste into Claude Code Chat**
+
+Open Claude Code chat and paste the prompt. Make sure your `SYSTEM_BLUEPRINT.md` is in the project or paste its contents.
+
+**Step 4: Review and Approve**
+
+Claude will generate a complete `DEV_PLAN.md` with all phases, tasks, subtasks, and quality gates. Review it and approve.
+
+**Step 5: Start Development**
+
+Tell Claude: "Let's start with Phase 1, Task 1.1"
+
+Claude will:
+- Create the feature branch
+- Guide you through subtasks
+- Enforce quality gates
+- Update the plan document
+- Merge to dev when task is complete
+- Update README and commit changes
+
+### Git Workflow in Dev Plans
+
+```
+main (production)
+ │
+ └── dev (integration)
+      ├── feature/task-1.1-project-setup
+      ├── feature/task-1.2-database-setup
+      └── feature/task-2.1-user-authentication
+```
+
+**For each task:**
+1. Claude creates `feature/task-X.Y-description` branch from `dev`
+2. You complete subtasks with Claude's guidance
+3. Claude enforces quality gates (tests pass, docs written, no TODOs, etc.)
+4. Claude merges to `dev` when code-complete
+5. Claude updates README and commits plan updates
+
+**After each phase:**
+- Claude merges `dev` to `main`
+- Claude tags the release
+- New phase starts fresh from `dev`
+
+### Zero Technical Debt Policy
+
+**No task is marked complete until it is CODE-COMPLETE:**
+
+✅ Functionality works as specified
+✅ Tests written and passing (unit + integration)
+✅ Documentation updated (code comments, README, API docs)
+✅ Error handling for all edge cases
+✅ Input validation implemented
+✅ No performance issues
+✅ No security vulnerabilities
+✅ Linting passes, no warnings
+✅ No TODOs, FIXMEs, or commented code
+✅ No unnecessary dependencies
+
+Claude enforces this - you can't move forward until quality gates pass.
+
+### Progress Tracking Example
+
+```
+You: "Where are we?"
+
+Claude: "We're in Phase 2: Core Features, currently on Task 2.3: Shopping Cart
+Implementation, specifically working on Subtask 2.3.2: Implement cart persistence.
+
+Status:
+✅ Phase 1: Foundation (100% complete)
+🔄 Phase 2: Core Features (40% complete)
+  ✅ Task 2.1: Product Catalog
+  ✅ Task 2.2: Search & Filters
+  🔄 Task 2.3: Shopping Cart (in progress)
+    ✅ 2.3.1: Create cart data model
+    🔄 2.3.2: Implement cart persistence (current)
+    ⏳ 2.3.3: Add/remove cart items
+⏳ Phase 3: Payment & Checkout (not started)"
+```
+
+### Documentation
+
+- 📖 **[Dev Plan Guide](docs/DEV_PLAN_GUIDE.md)** - Complete guide with prompt sequence and workflow
+- 📋 **Example DEV_PLAN.md** - See the structure inside the Dev Plan Guide
+
+### Tips for Best Results
+
+- **Complete the blueprint first** - A thorough blueprint = a better dev plan
+- **Review the generated plan** - Make sure task breakdown makes sense for your project
+- **Trust the process** - The quality gates exist to prevent technical debt
+- **Ask Claude for help** - If stuck on a subtask, Claude can provide guidance or alternative approaches
+- **Update estimates** - As you progress, update time estimates in the plan to improve future planning
 
 ---
 
