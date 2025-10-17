@@ -45,7 +45,7 @@ The free tier at Claude.ai does NOT include Claude Code access. You must upgrade
 ### What You'll Need
 
 1. **A Mac or Linux system**
-   - macOS users: Use `install.sh`
+   - macOS users: Use `install-mac.sh`
    - Linux users: Use `install-linux.sh`
 2. **GitHub Account** - Create one at [github.com](https://github.com) if needed
 3. **Claude Pro Subscription** - Sign up at [claude.ai](https://claude.ai) and upgrade at [claude.ai/settings/billing](https://claude.ai/settings/billing)
@@ -55,9 +55,9 @@ The free tier at Claude.ai does NOT include Claude Code access. You must upgrade
 <details>
 <summary><b>📦 macOS Installation</b></summary>
 
-### Step 1: Download and Run install.sh
+### Step 1: Download and Run install-mac.sh
 
-1. Download `install.sh` from this repository (click the file, then "Download raw file")
+1. Download `install-mac.sh` from this repository (click the file, then "Download raw file")
 2. Open Terminal on your Mac (Applications > Utilities > Terminal)
 3. Navigate to where you downloaded the file:
    ```bash
@@ -65,8 +65,8 @@ The free tier at Claude.ai does NOT include Claude Code access. You must upgrade
    ```
 4. Run the installation script:
    ```bash
-   chmod +x install.sh
-   ./install.sh
+   chmod +x install-mac.sh
+   ./install-mac.sh
    ```
 
 The script will automatically install:
@@ -363,23 +363,23 @@ Phase 2: Core Features (40% complete)
 
 ### "Homebrew installation failed"
 
-The `install.sh` script will attempt to install Homebrew. If it fails:
+The `install-mac.sh` script will attempt to install Homebrew. If it fails:
 
 1. Visit [brew.sh](https://brew.sh) for manual installation instructions
-2. Once Homebrew is installed, run `install.sh` again
+2. Once Homebrew is installed, run `install-mac.sh` again
 
 ### "VSCode won't open or command not found"
 
-After running `install.sh`:
+After running `install-mac.sh` or `install-linux.sh`:
 1. Restart your Terminal
 2. Try opening VSCode again with `code`
-3. If that doesn't work, open VSCode from Applications
+3. If that doesn't work, open VSCode from Applications (macOS) or your application menu (Linux)
 
 ### "npm install requires sudo" or "EACCES permission errors"
 
 If you see permission errors when installing npm packages globally:
 
-1. The `install.sh` script automatically configures npm to avoid sudo, but if you installed Node.js another way, you may need to reconfigure:
+1. The installation scripts automatically configure npm to avoid sudo, but if you installed Node.js another way, you may need to reconfigure:
    ```bash
    mkdir -p ~/.npm-global
    npm config set prefix ~/.npm-global
@@ -412,7 +412,7 @@ If you see permission errors when installing npm packages globally:
 
 The installation scripts install everything you need for Claude Code:
 
-**macOS (`install.sh`):**
+**macOS (`install-mac.sh`):**
 - **Homebrew** - Package manager for macOS (if not already installed)
 - **Git** - Version control system (usually pre-installed, verified/installed if needed)
 - **Node.js and npm** - JavaScript runtime and package manager (installed via Homebrew)

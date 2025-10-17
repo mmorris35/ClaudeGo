@@ -429,7 +429,7 @@ main() {
     print_info "4. If you skipped authentication, run: claude auth login"
     print_info "5. Start using Claude Code!"
     echo ""
-    print_info "Run './verify.sh' to verify your installation"
+    print_info "Run './verify-mac.sh' to verify your installation"
     echo ""
 }
 

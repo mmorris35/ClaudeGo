@@ -73,7 +73,7 @@ check_git() {
     else
         print_error "Git is not installed"
         all_checks_passed=false
-        print_info "Run './install.sh' to install it"
+        print_info "Run './install-mac.sh' to install it"
     fi
 }
 
@@ -87,7 +87,7 @@ check_node() {
     else
         print_error "Node.js is not installed"
         all_checks_passed=false
-        print_info "Run './install.sh' to install it"
+        print_info "Run './install-mac.sh' to install it"
     fi
 
     if command -v npm &> /dev/null; then
@@ -96,7 +96,7 @@ check_node() {
     else
         print_error "npm is not installed"
         all_checks_passed=false
-        print_info "Run './install.sh' to install it"
+        print_info "Run './install-mac.sh' to install it"
     fi
 }
 
@@ -141,7 +141,7 @@ check_claude_cli() {
     else
         print_error "Claude CLI is not installed"
         all_checks_passed=false
-        print_info "Run './install.sh' to install it"
+        print_info "Run './install-mac.sh' to install it"
         print_info "Or manually: npm install -g @anthropic-ai/claude-cli"
     fi
 }
@@ -196,7 +196,7 @@ check_claude_extension() {
         else
             print_error "Claude Code extension is not installed"
             all_checks_passed=false
-            print_info "Run './install.sh' to install it"
+            print_info "Run './install-mac.sh' to install it"
         fi
     else
         print_error "Cannot check extensions - 'code' command not available"
@@ -211,7 +211,7 @@ check_authentication() {
     if ! command -v claude &> /dev/null; then
         print_error "Claude CLI not found - cannot check authentication"
         all_checks_passed=false
-        print_info "Install Claude CLI first: run './install.sh'"
+        print_info "Install Claude CLI first: run './install-mac.sh'"
         return
     fi
 
@@ -275,7 +275,7 @@ display_summary() {
         echo -e "${RED}╚═══════════════════════════════════════════════════╝${NC}"
         echo ""
         print_info "Please review the errors above"
-        print_info "Run './install.sh' to fix missing components"
+        print_info "Run './install-mac.sh' to fix missing components"
         echo ""
         exit 1
     fi
