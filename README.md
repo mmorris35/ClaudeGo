@@ -62,11 +62,16 @@ The free tier at Claude.ai does NOT include Claude Code access. You must upgrade
    ./install.sh
    ```
 
-The script will:
-- ✅ Verify you have Claude Pro subscription
-- ✅ Install Homebrew (if needed)
-- ✅ Install VSCode (if not already installed)
-- ✅ Install the Claude Code extension
+The script will automatically install:
+- ✅ Homebrew (package manager)
+- ✅ Git (version control)
+- ✅ Node.js and npm (no sudo required)
+- ✅ VSCode (code editor)
+- ✅ Claude CLI (command-line tool)
+- ✅ Claude Code extension
+- ✅ Authenticate with your Claude account (interactive)
+
+**The script will prompt you to authenticate during installation.** Just follow the prompts!
 
 ### Step 2: Fork and Clone This Repository
 
@@ -81,22 +86,15 @@ The script will:
 3. Paste: `https://github.com/YOUR_USERNAME/ClaudeGo.git` (replace with your GitHub username)
 4. Choose a folder and click "Open"
 
-### Step 3: Authenticate with Claude
+### Step 3: Verify Everything Works
 
-In VSCode Terminal (`Terminal > New Terminal` or `Ctrl+~`):
+Open a new terminal (to ensure PATH is updated) and check:
 
-```bash
-claude auth login
-```
-
-**IMPORTANT:** Choose "Login with Claude.ai account" (NOT "API Key")
-
-Your browser opens → Log in → Authorize → Done!
-
-Verify it worked:
 ```bash
 claude status
 ```
+
+You should see your Claude account information and subscription status.
 
 **That's it. You're ready.** Now let's use these superpowers.
 
@@ -292,11 +290,12 @@ Phase 2: Core Features (40% complete)
 ### "Authentication failed"
 
 1. Make sure you have an active Claude Pro subscription at [claude.ai/settings/billing](https://claude.ai/settings/billing)
-2. In VSCode Terminal, run:
+2. Open a new terminal and run:
    ```bash
    claude auth login
    ```
-3. Follow the authentication prompts
+3. **IMPORTANT:** Choose "Login with Claude.ai account" (NOT "API Key")
+4. Your browser will open → Log in → Authorize → Done!
 
 ### "Homebrew installation failed"
 
@@ -324,9 +323,16 @@ After running `install.sh`:
 
 ### What Gets Installed
 
+The `install.sh` script installs everything you need for Claude Code:
+
 - **Homebrew** - Package manager for macOS (if not already installed)
+- **Git** - Version control system (usually pre-installed, verified/installed if needed)
+- **Node.js and npm** - JavaScript runtime and package manager (installed via Homebrew, no sudo required)
 - **VSCode** - Visual Studio Code editor (if not already installed)
+- **Claude CLI** - Command-line tool for authentication and status checks (installed via npm)
 - **Claude Code Extension** - Official Claude extension for VSCode
+
+All installations are automated and require no manual configuration. Node.js/npm are installed via Homebrew, which means they work without sudo permissions.
 
 ### Documentation Links
 
