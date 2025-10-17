@@ -7,7 +7,7 @@ ClaudeGo is your all-in-one system for turning ideas into production-ready softw
 ## 🚀 What You Get
 
 ### 1. **Zero-Friction Setup** (5 minutes)
-Download one script, run it, and get Claude Code working in VSCode on your Mac. No configuration hell. No debugging toolchains. Just working AI development in minutes.
+Download one script, run it, and get Claude Code working in VSCode on Mac or Linux. No configuration hell. No debugging toolchains. Just working AI development in minutes.
 
 ### 2. **System Blueprint Generator** (3-4 hours → Complete Technical Spec)
 Stop Googling "best architecture for X." Have a conversation with Claude, and get a production-grade technical specification covering:
@@ -44,9 +44,16 @@ The free tier at Claude.ai does NOT include Claude Code access. You must upgrade
 
 ### What You'll Need
 
-1. **A Mac** running macOS (these scripts are Mac-only)
+1. **A Mac or Linux system**
+   - macOS users: Use `install.sh`
+   - Linux users: Use `install-linux.sh`
 2. **GitHub Account** - Create one at [github.com](https://github.com) if needed
 3. **Claude Pro Subscription** - Sign up at [claude.ai](https://claude.ai) and upgrade at [claude.ai/settings/billing](https://claude.ai/settings/billing)
+
+### Installation by Platform
+
+<details>
+<summary><b>📦 macOS Installation</b></summary>
 
 ### Step 1: Download and Run install.sh
 
@@ -97,6 +104,63 @@ claude status
 You should see your Claude account information and subscription status.
 
 **That's it. You're ready.** Now let's use these superpowers.
+
+</details>
+
+<details>
+<summary><b>🐧 Linux Installation</b></summary>
+
+### Step 1: Download and Run install-linux.sh
+
+1. Download `install-linux.sh` from this repository (click the file, then "Download raw file")
+2. Open Terminal
+3. Navigate to where you downloaded the file:
+   ```bash
+   cd ~/Downloads
+   ```
+4. Run the installation script:
+   ```bash
+   chmod +x install-linux.sh
+   ./install-linux.sh
+   ```
+
+The script will automatically install:
+- ✅ System packages (curl, wget, gnupg)
+- ✅ Git (version control)
+- ✅ Node.js and npm (no sudo required)
+- ✅ VSCode (code editor)
+- ✅ Claude CLI (command-line tool)
+- ✅ Claude Code extension
+- ✅ Authenticate with your Claude account (interactive)
+
+**The script will prompt you to authenticate during installation.** Just follow the prompts!
+
+### Step 2: Fork and Clone This Repository
+
+**Why fork?** You'll get your own copy with all the blueprint and dev plan templates, ready to customize for your projects.
+
+1. Go to [github.com/mmorris35/ClaudeGo](https://github.com/mmorris35/ClaudeGo)
+2. Click "Fork" (top-right corner)
+3. Open VSCode and clone YOUR fork:
+
+1. Press `Ctrl+Shift+P` to open Command Palette
+2. Type "Git: Clone"
+3. Paste: `https://github.com/YOUR_USERNAME/ClaudeGo.git` (replace with your GitHub username)
+4. Choose a folder and click "Open"
+
+### Step 3: Verify Everything Works
+
+Open a new terminal (to ensure PATH is updated) and check:
+
+```bash
+claude status
+```
+
+You should see your Claude account information and subscription status.
+
+**That's it. You're ready.** Now let's use these superpowers.
+
+</details>
 
 ---
 
@@ -346,8 +410,9 @@ If you see permission errors when installing npm packages globally:
 
 ### What Gets Installed
 
-The `install.sh` script installs everything you need for Claude Code:
+The installation scripts install everything you need for Claude Code:
 
+**macOS (`install.sh`):**
 - **Homebrew** - Package manager for macOS (if not already installed)
 - **Git** - Version control system (usually pre-installed, verified/installed if needed)
 - **Node.js and npm** - JavaScript runtime and package manager (installed via Homebrew)
@@ -356,7 +421,16 @@ The `install.sh` script installs everything you need for Claude Code:
 - **Claude CLI** - Command-line tool for authentication and status checks (installed via npm)
 - **Claude Code Extension** - Official Claude extension for VSCode
 
-All installations are automated and require no manual configuration. The script ensures npm works without sudo by configuring it to use a user-local directory (`~/.npm-global`) instead of system directories.
+**Linux (`install-linux.sh`):**
+- **System packages** - curl, wget, gnupg (if not already installed)
+- **Git** - Version control system (installed via apt)
+- **Node.js and npm** - JavaScript runtime and package manager (installed from NodeSource repository)
+- **npm configuration** - Automatically configured for global installs without sudo (uses `~/.npm-global`)
+- **VSCode** - Visual Studio Code editor (installed from Microsoft repository)
+- **Claude CLI** - Command-line tool for authentication and status checks (installed via npm)
+- **Claude Code Extension** - Official Claude extension for VSCode
+
+All installations are automated and require no manual configuration. The scripts ensure npm works without sudo by configuring it to use a user-local directory (`~/.npm-global`) instead of system directories.
 
 ### Documentation Links
 
