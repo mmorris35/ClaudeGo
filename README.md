@@ -311,6 +311,29 @@ After running `install.sh`:
 2. Try opening VSCode again with `code`
 3. If that doesn't work, open VSCode from Applications
 
+### "npm install requires sudo" or "EACCES permission errors"
+
+If you see permission errors when installing npm packages globally:
+
+1. The `install.sh` script automatically configures npm to avoid sudo, but if you installed Node.js another way, you may need to reconfigure:
+   ```bash
+   mkdir -p ~/.npm-global
+   npm config set prefix ~/.npm-global
+   ```
+
+2. Add to your shell config (`~/.zshrc` or `~/.bash_profile`):
+   ```bash
+   export NPM_PREFIX="$HOME/.npm-global"
+   export PATH="$NPM_PREFIX/bin:$PATH"
+   ```
+
+3. Restart your terminal and try installing Claude CLI again:
+   ```bash
+   npm install -g @anthropic-ai/claude-cli
+   ```
+
+**Why this happens:** Node.js installed system-wide (not via Homebrew) often requires sudo for global packages. Our script prevents this by using a user-local directory.
+
 ### Still Having Issues?
 
 - Check [Claude Code documentation](https://docs.claude.com/en/docs/claude-code)
@@ -327,12 +350,13 @@ The `install.sh` script installs everything you need for Claude Code:
 
 - **Homebrew** - Package manager for macOS (if not already installed)
 - **Git** - Version control system (usually pre-installed, verified/installed if needed)
-- **Node.js and npm** - JavaScript runtime and package manager (installed via Homebrew, no sudo required)
+- **Node.js and npm** - JavaScript runtime and package manager (installed via Homebrew)
+- **npm configuration** - Automatically configured for global installs without sudo (uses `~/.npm-global`)
 - **VSCode** - Visual Studio Code editor (if not already installed)
 - **Claude CLI** - Command-line tool for authentication and status checks (installed via npm)
 - **Claude Code Extension** - Official Claude extension for VSCode
 
-All installations are automated and require no manual configuration. Node.js/npm are installed via Homebrew, which means they work without sudo permissions.
+All installations are automated and require no manual configuration. The script ensures npm works without sudo by configuring it to use a user-local directory (`~/.npm-global`) instead of system directories.
 
 ### Documentation Links
 

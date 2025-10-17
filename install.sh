@@ -136,6 +136,78 @@ install_node() {
     fi
 }
 
+# Configure npm for global installs without sudo
+configure_npm() {
+    print_header "Configuring npm for Global Installs"
+
+    # Check if npm is available
+    if ! command -v npm &> /dev/null; then
+        print_error "npm is not installed"
+        return 1
+    fi
+
+    # Set up npm global directory in user's home directory
+    local NPM_PREFIX="$HOME/.npm-global"
+
+    # Check current npm prefix
+    local CURRENT_PREFIX=$(npm config get prefix)
+
+    # If prefix is already set to a user directory, we're good
+    if [[ "$CURRENT_PREFIX" == "$HOME"* ]]; then
+        print_success "npm is already configured for non-sudo global installs"
+        print_info "Current prefix: $CURRENT_PREFIX"
+        return 0
+    fi
+
+    print_info "Setting up npm for global installs without sudo..."
+    print_info "Current npm prefix: $CURRENT_PREFIX"
+
+    # Create npm global directory
+    mkdir -p "$NPM_PREFIX"
+
+    # Configure npm to use it
+    npm config set prefix "$NPM_PREFIX"
+
+    # Add to PATH in shell config files
+    local SHELL_RC=""
+    if [[ -f "$HOME/.zshrc" ]]; then
+        SHELL_RC="$HOME/.zshrc"
+    elif [[ -f "$HOME/.bash_profile" ]]; then
+        SHELL_RC="$HOME/.bash_profile"
+    else
+        SHELL_RC="$HOME/.zshrc"
+        touch "$SHELL_RC"
+    fi
+
+    # Check if PATH already contains npm global bin
+    if ! grep -q "NPM_PREFIX" "$SHELL_RC"; then
+        cat >> "$SHELL_RC" << 'NPMEOF'
+
+# npm global packages without sudo
+export NPM_PREFIX="$HOME/.npm-global"
+export PATH="$NPM_PREFIX/bin:$PATH"
+NPMEOF
+        print_success "Added npm global bin to PATH in $SHELL_RC"
+    fi
+
+    # Update PATH for current session
+    export PATH="$NPM_PREFIX/bin:$PATH"
+
+    # Verify configuration
+    local NEW_PREFIX=$(npm config get prefix)
+    if [[ "$NEW_PREFIX" == "$NPM_PREFIX" ]]; then
+        print_success "npm configured successfully for non-sudo global installs"
+        print_info "npm prefix: $NEW_PREFIX"
+        print_warning "You may need to restart your terminal for PATH changes to take full effect"
+        return 0
+    else
+        print_warning "npm configuration may not have applied correctly"
+        print_info "Current prefix: $NEW_PREFIX"
+        print_info "Expected prefix: $NPM_PREFIX"
+        return 1
+    fi
+}
+
 # Install VSCode if not present
 install_vscode() {
     print_header "Checking VSCode"
@@ -187,16 +259,55 @@ install_claude_cli() {
         return
     fi
 
-    print_info "Installing Claude CLI via npm..."
-    npm install -g @anthropic-ai/claude-cli
+    # Verify npm works without sudo by checking prefix
+    local NPM_PREFIX=$(npm config get prefix)
+    if [[ "$NPM_PREFIX" != "$HOME"* ]] && [[ "$NPM_PREFIX" == "/usr/local" || "$NPM_PREFIX" == "/usr" ]]; then
+        print_warning "npm prefix is set to a system directory: $NPM_PREFIX"
+        print_info "This would require sudo for global installs. Reconfiguring npm..."
 
-    if command -v claude &> /dev/null; then
+        if ! configure_npm; then
+            print_error "Failed to configure npm for non-sudo installs"
+            print_info "You may need to manually configure npm with:"
+            print_info "  mkdir -p ~/.npm-global"
+            print_info "  npm config set prefix ~/.npm-global"
+            print_info "  export PATH=~/.npm-global/bin:\$PATH"
+            exit 1
+        fi
+    fi
+
+    print_info "Installing Claude CLI via npm (no sudo required)..."
+    print_info "npm prefix: $(npm config get prefix)"
+
+    # Attempt to install without sudo
+    if npm install -g @anthropic-ai/claude-cli; then
         print_success "Claude CLI installed successfully"
-        print_info "Claude CLI version: $(claude --version)"
+
+        # Check if command is available
+        if command -v claude &> /dev/null; then
+            print_info "Claude CLI version: $(claude --version)"
+        else
+            # Update PATH for current session
+            local NPM_PREFIX=$(npm config get prefix)
+            export PATH="$NPM_PREFIX/bin:$PATH"
+
+            if command -v claude &> /dev/null; then
+                print_success "Claude CLI is now available"
+                print_info "Claude CLI version: $(claude --version)"
+                print_warning "You may need to restart your terminal for PATH changes to persist"
+            else
+                print_warning "Claude CLI installed but not found in PATH"
+                print_info "After restarting terminal, verify with: claude --version"
+            fi
+        fi
     else
         print_error "Failed to install Claude CLI"
-        print_warning "You may need to restart your terminal for the PATH changes to take effect"
-        print_info "After restarting, verify with: claude --version"
+        print_info "If you see 'EACCES' or permission errors, npm is not configured correctly"
+        print_info "Try running the script again or manually configure npm:"
+        print_info "  mkdir -p ~/.npm-global"
+        print_info "  npm config set prefix ~/.npm-global"
+        print_info "  export PATH=~/.npm-global/bin:\$PATH"
+        print_info "  npm install -g @anthropic-ai/claude-cli"
+        exit 1
     fi
 }
 
@@ -292,6 +403,7 @@ main() {
     install_homebrew
     check_git
     install_node
+    configure_npm
     install_vscode
     install_claude_cli
     install_claude_extension
