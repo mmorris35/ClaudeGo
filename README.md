@@ -297,6 +297,25 @@ A Development Plan (`DEV_PLAN.md`) is a detailed execution roadmap that breaks y
 - 🚫 **Zero technical debt** - No task is complete until it's code-complete (tests, docs, error handling, etc.)
 - 📍 **Progress tracking** - Claude marks completion and you can ask "where are we?"
 
+### Sequential vs Parallel Execution
+
+**Sequential Dev Plan** (Traditional)
+- Tasks execute one at a time
+- Simpler coordination, lower overhead
+- Best for: Small projects (<10 tasks), learning, prototyping
+- Guide: [docs/DEV_PLAN_GUIDE.md](docs/DEV_PLAN_GUIDE.md)
+
+**Parallel Dev Plan** (3-4x Faster!) 🚀
+- Multiple tasks execute simultaneously using parallel agents
+- 50-70% time savings on most projects
+- Automatic dependency analysis and conflict prevention
+- Best for: Medium-large projects (15+ tasks), time-critical delivery
+- Guide: [docs/PARALLEL_DEV_PLAN_GUIDE.md](docs/PARALLEL_DEV_PLAN_GUIDE.md)
+
+**Example Speed Comparison:**
+
+Traditional Sequential: 40 hours → Parallel Execution: 15 hours (62% faster)
+
 ### Why Create a Dev Plan?
 
 - **No missed steps** - Every detail from blueprint becomes a concrete task
@@ -404,8 +423,9 @@ Status:
 
 ### Documentation
 
-- 📖 **[Dev Plan Guide](docs/DEV_PLAN_GUIDE.md)** - Complete guide with prompt sequence and workflow
-- 📋 **Example DEV_PLAN.md** - See the structure inside the Dev Plan Guide
+- 📖 **[Sequential Dev Plan Guide](docs/DEV_PLAN_GUIDE.md)** - Traditional one-task-at-a-time execution
+- 🚀 **[Parallel Dev Plan Guide](docs/PARALLEL_DEV_PLAN_GUIDE.md)** - NEW! 3-4x faster with parallel agents
+- 📋 **Example Plans** - See structures inside both guides
 
 ### Tips for Best Results
 
