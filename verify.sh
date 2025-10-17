@@ -63,6 +63,89 @@ check_homebrew() {
     fi
 }
 
+# Verify Git
+check_git() {
+    print_header "Git Check"
+
+    if command -v git &> /dev/null; then
+        print_success "Git is installed"
+        echo -e "   Version: $(git --version)"
+    else
+        print_error "Git is not installed"
+        all_checks_passed=false
+        print_info "Run './install.sh' to install it"
+    fi
+}
+
+# Verify Node.js and npm
+check_node() {
+    print_header "Node.js and npm Check"
+
+    if command -v node &> /dev/null; then
+        print_success "Node.js is installed"
+        echo -e "   Version: $(node --version)"
+    else
+        print_error "Node.js is not installed"
+        all_checks_passed=false
+        print_info "Run './install.sh' to install it"
+    fi
+
+    if command -v npm &> /dev/null; then
+        print_success "npm is installed"
+        echo -e "   Version: $(npm --version)"
+    else
+        print_error "npm is not installed"
+        all_checks_passed=false
+        print_info "Run './install.sh' to install it"
+    fi
+}
+
+# Verify npm configuration (no sudo required)
+check_npm_config() {
+    print_header "npm Configuration Check"
+
+    if ! command -v npm &> /dev/null; then
+        print_error "npm is not installed - skipping configuration check"
+        return
+    fi
+
+    local NPM_PREFIX=$(npm config get prefix)
+
+    if [[ "$NPM_PREFIX" == "$HOME"* ]]; then
+        print_success "npm is configured for non-sudo global installs"
+        echo -e "   Prefix: $NPM_PREFIX"
+    elif [[ "$NPM_PREFIX" == "/usr/local" || "$NPM_PREFIX" == "/usr" ]]; then
+        print_warning "npm prefix is set to a system directory: $NPM_PREFIX"
+        print_info "This may require sudo for global installs"
+        print_info "To fix, run:"
+        print_info "  mkdir -p ~/.npm-global"
+        print_info "  npm config set prefix ~/.npm-global"
+        print_info "  export PATH=~/.npm-global/bin:\$PATH"
+    else
+        print_success "npm prefix is set to: $NPM_PREFIX"
+    fi
+}
+
+# Verify Claude CLI
+check_claude_cli() {
+    print_header "Claude CLI Check"
+
+    if command -v claude &> /dev/null; then
+        print_success "Claude CLI is installed"
+
+        # Try to get version
+        local version=$(claude --version 2>/dev/null || echo "unknown")
+        if [[ "$version" != "unknown" ]]; then
+            echo -e "   Version: $version"
+        fi
+    else
+        print_error "Claude CLI is not installed"
+        all_checks_passed=false
+        print_info "Run './install.sh' to install it"
+        print_info "Or manually: npm install -g @anthropic-ai/claude-cli"
+    fi
+}
+
 # Verify VSCode
 check_vscode() {
     print_header "VSCode Check"
@@ -125,25 +208,28 @@ check_claude_extension() {
 check_authentication() {
     print_header "Claude Authentication Check"
 
-    print_info "To verify authentication:"
-    print_info "1. Open VSCode"
-    print_info "2. Press Cmd+Shift+P"
-    print_info "3. Type 'Claude Code'"
-    print_info "4. If you see Claude commands, you're authenticated!"
-    echo ""
-
-    read -p "Are you able to use Claude Code commands in VSCode? (yes/no): " is_authenticated
-
-    if [[ "$is_authenticated" == "yes" || "$is_authenticated" == "y" ]]; then
-        print_success "Claude Code is authenticated and working"
-    else
-        print_error "Claude Code is not authenticated"
+    if ! command -v claude &> /dev/null; then
+        print_error "Claude CLI not found - cannot check authentication"
         all_checks_passed=false
-        print_info "To authenticate:"
-        print_info "1. Open VSCode"
-        print_info "2. Press Cmd+Shift+P"
-        print_info "3. Type 'Claude Code: Sign In'"
-        print_info "4. Follow the prompts"
+        print_info "Install Claude CLI first: run './install.sh'"
+        return
+    fi
+
+    # Try to get claude status
+    if claude status &> /dev/null; then
+        print_success "Claude CLI is authenticated"
+        echo ""
+        print_info "Account details:"
+        claude status | head -n 10
+        echo ""
+    else
+        print_error "Claude CLI is not authenticated"
+        all_checks_passed=false
+        echo ""
+        print_info "To authenticate, run:"
+        print_info "  claude auth login"
+        echo ""
+        print_info "IMPORTANT: Choose 'Login with Claude.ai account' (NOT 'API Key')"
     fi
 }
 
@@ -206,7 +292,11 @@ main() {
 
     check_macos
     check_homebrew
+    check_git
+    check_node
+    check_npm_config
     check_vscode
+    check_claude_cli
     check_claude_extension
     check_authentication
     check_subscription
