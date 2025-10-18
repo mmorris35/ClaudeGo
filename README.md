@@ -164,6 +164,38 @@ You should see your Claude account information and subscription status.
 
 ---
 
+## 🎨 Built-in Skills
+
+ClaudeGo includes powerful skills that make it easy to use the blueprint and dev plan features:
+
+### Available Skills
+
+**`/create-blueprint`** - Launch the interactive System Blueprint creator
+- Guided 6-phase process for complete technical specifications
+- Claude asks questions and recommends architecture, tech stack, and strategies
+- Generates production-ready `SYSTEM_BLUEPRINT.md`
+
+**`/create-dev-plan`** - Generate a sequential development plan from your blueprint
+- Breaks blueprint into numbered phases, tasks, and subtasks
+- Includes git workflow, quality gates, and progress tracking
+- Traditional one-task-at-a-time execution
+
+**`/create-parallel-dev-plan`** - Generate a parallel execution plan (3-4x faster!)
+- Analyzes task dependencies and creates parallel batches
+- Multiple tasks execute simultaneously via parallel agents
+- 50-70% time savings on most projects
+
+### Using Skills
+
+Just type the skill name in Claude Code chat:
+```
+/create-blueprint
+```
+
+Claude will guide you through the entire process interactively.
+
+---
+
 ## 📋 Feature Deep Dive
 
 ### System Blueprint Generator
@@ -191,12 +223,14 @@ A complete `SYSTEM_BLUEPRINT.md` covering:
 
 #### How to Start
 
-**Option 1: Slash Command (Recommended)**
+**Option 1: Use the Skill (Easiest)**
 
-In Claude Code chat:
+In Claude Code chat, type:
 ```
 /create-blueprint
 ```
+
+This launches the interactive blueprint creation skill that guides you through all 6 phases.
 
 **Option 2: Manual Start**
 
@@ -265,15 +299,28 @@ A complete `DEV_PLAN.md` with:
 
 **Step 1:** Complete your System Blueprint first
 
-**Step 2:** Open [docs/DEV_PLAN_GUIDE.md](docs/DEV_PLAN_GUIDE.md) or [docs/PARALLEL_DEV_PLAN_GUIDE.md](docs/PARALLEL_DEV_PLAN_GUIDE.md)
+**Step 2:** Choose your execution style:
 
-**Step 3:** Copy the prompt sequence and paste into Claude Code chat
+**Sequential (Traditional)** - Use the skill:
+```
+/create-dev-plan
+```
 
-**Step 4:** Claude generates your complete `DEV_PLAN.md`
+**Parallel (3-4x Faster)** - Use the skill:
+```
+/create-parallel-dev-plan
+```
 
-**Step 5:** Start development:
+**Step 3:** Claude generates your complete `DEV_PLAN.md` with phases, tasks, and quality gates
+
+**Step 4:** Start development:
 ```
 "Let's start with Phase 1, Task 1.1"
+```
+
+Or for parallel execution:
+```
+"Let's start Batch 1.B in parallel"
 ```
 
 Claude will:
